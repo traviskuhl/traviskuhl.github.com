@@ -7,6 +7,6 @@ title: hello world
 ================================
 
 
-    #!/usr/bin/php
+	#!/usr/bin/php
 
-    echo 'hello world!';
+	echo 'hello world!';
