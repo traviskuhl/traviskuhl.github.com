@@ -1,0 +1,15 @@
+html, body {width: 100%;height:100%;}
+
+header {
+	position: fixed;
+	width: 200px;
+	height: 100%;
+	background: #fafafa;
+	box-shadow: inset -3px 0 10px #ccc;
+}
+
+header a.logo {
+	display: block;
+	padding: 30px;
+	color: #999;
+}
