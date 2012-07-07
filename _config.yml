@@ -1,1 +1,5 @@
+safe: true
+source: traviskuhl.github.com
+destination: /
+lsi: false
 pygments: true
