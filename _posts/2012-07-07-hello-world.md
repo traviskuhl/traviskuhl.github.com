@@ -7,6 +7,10 @@ title: hello world
 ================================
 
 
-	#!/usr/bin/php
+{% highlight php %}
 
-	echo 'hello world!';
+#!/usr/bin/php
+
+echo 'hello world!';
+
+{% endhighlight %}
