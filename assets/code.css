@@ -23,3 +23,7 @@ header a.logo sub {
 	color: #ccc;
 	font-size: 16px;
 }
+
+#bd {
+	padding: 20px 20px 20px 220px;
+}
