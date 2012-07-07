@@ -1,5 +1,5 @@
 safe: true
-source: traviskuhl.github.com
-destination: /
+source: ./
+destination: ./build
 lsi: false
 pygments: true
