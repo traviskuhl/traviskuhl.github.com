@@ -7,7 +7,7 @@ class: post
 {{page.title}}
 ================================
 
-it's rare these days that i get a chance to use html tables in any of the work i do. honestly, that's a very good thing. tables are prefect for tabular data, but anything even slightly beyond that is a nightmare. so a few weeks ago, when ask to build a parody porn site for [teamcoco](http://teamcoco.com), naturally my first thought was, "what is this 'porn' you speak of?" 
+it's rare these days that i get a chance to use HTML tables in any of the work i do. honestly, that's a very good thing. tables are prefect for tabular data, but anything even slightly beyond that is a nightmare. so a few weeks ago, when ask to build a parody porn site for [teamcoco](http://teamcoco.com), naturally my first thought was, "what is this 'porn' you speak of &amp; does it require HTML tables?" 
 
 after seeing the mocks for [conan.xxx](http://conan.xxx), i was excited to see that the final design was very retro. i had immediate flashbacks to my early days building websites and the endless hours spent struggling to shove extremely simple layouts into tables. side track: i once spent two days pounding my head against a wall, trying to figure out why my entire site wouldn't render in [netscape 4](http://en.wikipedia.org/wiki/Netscape). after scouring the internet for hours (remember 56k modems, shit took longer), i finally [figured out](http://www.netmechanic.com/news/vol2/html_no4.htm) that i hadn't included the `</table>` tag.
 
