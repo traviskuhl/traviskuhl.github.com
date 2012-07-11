@@ -1,16 +1,15 @@
 ---
 layout: default
 title: hello world
+class: post
 --- 
 
 {{page.title}}
 ================================
 
+{% highlight perl %}
+#!/usr/bin/perl
 
-{% highlight php %}
-
-#!/usr/bin/php
-
-echo 'hello world!';
+print 'hello world!';
 
 {% endhighlight %}

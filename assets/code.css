@@ -4,23 +4,26 @@ html, body {
 	font-size: 13px;
 	font-family: arial;
 	margin: 0; padding: 0;
+	background: #333;
 }
 
 header {
 	position: fixed;
 	width: 300px;
 	height: 100%;
-	background: #fafafa;
+	background: #fff;
 	box-shadow: inset -3px 0 10px #ccc;
 }
+
+header h1 {margin:0;}
 
 header a.logo {
 	display: block;
 	padding: 20px;
 	color: #999;
 	text-decoration: none;
-	font-size: 24px;
-	font-family: "Squada One";
+	font-size: 34px;
+	font-family: "Overlock";
 	text-shadow: #fff 1px 1px;
 }
 
@@ -33,19 +36,21 @@ header a.logo sub {
 header ol {
 	padding: 0 20px;
 	margin: 0;
+	float: left;
 }
 
 header ol li {
 	list-style: none;
-	padding:0; margin: 0;
+	padding: 0; margin: 0;
 	border-bottom: solid 1px #fff;
+	min-width: 250px;
 }
 
 header ol li a {
 	display: block;
 	color: #888;
 	text-decoration: none;
-	padding: 5px 1px;	
+	padding: 5px 1px;
 	border-bottom: solid 1px #e5e5e5;
 }
 
@@ -59,17 +64,62 @@ header ol li:last-child, header ol li:last-child a { border-bottom: none;}
 
 #bd {
 	padding: 20px 20px 20px 320px;
-	color: #666;
+	color: #999;
+	max-width: 900px;
+	line-height: 1.4em;
+	text-shadow: #111 1px 1px;
 }
 
 #bd h1 {
-	font-family: "Squada One";
-	font-size: 22px;
-	color: #333;
+	font-family: "Overlock";
+	font-size: 42px;
+	color: #fff;
 	margin-top: 0;
 }
 
-.highlight  { background: #ffffff; }
+#bd a {
+	color: #777;
+	text-shadow: none;
+	text-decoration: none;
+}
+#bd a:hover { color: #fff; }
+
+body.home #bd {
+	display: none;
+}
+body.home header {
+	width: 100%;
+}
+
+footer {
+	position: fixed;
+	left: 10px;
+	bottom: 10px;
+	font-size: 10px;
+	color: #ccc;
+}
+
+footer a {
+	font-size: 11px;
+	color: #888;
+	text-decoration: none;
+}
+
+
+.highlight  { 
+	background: #eee; 
+	overflow: auto; 
+	padding: 10px; 
+	text-shadow: #fcfcfc 1px 1px; 
+	opacity: .9; 
+
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: solid 3px #666;
+}
+.highlight:hover { opacity: 1;}
+.highlight pre {margin: 0;}
 .highlight .c { color: #999988; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
 .highlight .k { font-weight: bold } /* Keyword */

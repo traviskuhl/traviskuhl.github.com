@@ -10,25 +10,30 @@
 
     <title>{{ page.title }} | code.traviskuhl.com</title>
     <meta name="viewport" content="width=device-width">    
-    <link href='http://fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'>    
+    <link href='http://fonts.googleapis.com/css?family=Overlock' rel='stylesheet' type='text/css'>    
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/code.css">
-    <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
-    <script src="{{ site.baseurl }}/assets/code.js"></script>
+    <script src="{{ site.baseurl }}/assets/code.js"></script>    
 </head>
-<body>
+<body class="{{page.class}}">
     <header>
-        <a class="logo" href="/">code<sub>traviskuhl.com</sub></a>
+        {% if page.class == 'home' %}
+            <h1><a class="logo" href="/">code<sub>traviskuhl.com</sub></a></h1>
+        {% else %}
+            <a class="logo" href="/">code<sub>traviskuhl.com</sub></a>
+        {% endif %}
 
         <ol>
             {% for item in site.posts limit 10 %}
                 <li><a href='{{ item.url }}'>{{ item.title }} <time>{{ item.date| date:"%Y-%m-%d" }}</time></a></li>
             {% endfor %}
         </ol>
-
     </header>
     <div id="bd">
         {{ content }}
     </div>
+    <footer>
+        <a href='http://twitter.com/traviskuhl'>@traviskuhl</a>
+    </footer>
     <script>
         var _gaq=[['_setAccount','UA-123654-9'],['_trackPageview']];
         (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
