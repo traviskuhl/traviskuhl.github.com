@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>conan.xxx | code.traviskuhl.com</title>
+    <meta name="viewport" content="width=device-width">
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/code.css">
+</head>
+<body class="post">
+    <header>
+        <div class="inner">
+            
+                <a class="logo" href="/">code<sub>.traviskuhl.com</sub></a>
+            
+
+            <ol>
+                
+                    <li><a href='/2013/02/01/the-new-teamcoco-frontend.html'>the new teamcoco.com frontend <time>2013-02-01</time></a></li>
+                
+                    <li><a href='/2012/07/11/tables-and-conan.xxx.html'>conan.xxx <time>2012-07-11</time></a></li>
+                
+                    <li><a href='/2012/07/07/hello-world.html'>hello world <time>2012-07-07</time></a></li>
+                
+            </ol>
+        </div>
+    </header>
+    <div id="bd">
+        <h1 id='conanxxx'>conan.xxx</h1>
+
+<p>it&#8217;s rare these days that i get a chance to use HTML tables in any of the work i do. honestly, that&#8217;s a very good thing. tables are prefect for tabular data, but anything even slightly beyond that is a nightmare. so a few weeks ago, when ask to build a parody porn site for <a href='http://teamcoco.com'>teamcoco</a>, naturally my first thought was, &#8220;what is this &#8216;porn&#8217; you speak of &#38; does it require HTML tables?&#8221;</p>
+
+<p>after seeing the mocks for <a href='http://conan.xxx'>conan.xxx</a>, i was excited to see that the final design was very retro. i had immediate flashbacks to my early days building websites and the endless hours spent struggling to shove extremely simple layouts into tables. side track: i once spent two days pounding my head against a wall, trying to figure out why my entire site wouldn&#8217;t render in <a href='http://en.wikipedia.org/wiki/Netscape'>netscape 4</a>. after scouring the internet for hours (remember 56k modems, shit took longer), i finally <a href='http://www.netmechanic.com/news/vol2/html_no4.htm'>figured out</a> that i hadn&#8217;t included the <code>&lt;/table&gt;</code> tag.</p>
+
+<p>conan.xxx was a perfect opportunity to dust off my long dormant table-based-layout skills and build an awesome parody porn site. here&#8217;s just a sample, in all it&#8217;s nested table glory:</p>
+<div>
+  <pre><code class='html'>&lt;body background=&quot;http://static.teamcococdn.com/microsite/conan.xxx/images/bg.gif&quot; bgcolor=&quot;#debca7&quot; text=&quot;white&quot; link=&quot;#000000&quot; vlink=&quot;#000000&quot;&gt;
+ &lt;center&gt;
+  &lt;table border=&quot;0&quot; style=&quot;background:url(http://static.teamcococdn.com/microsite/conan.xxx/images/page.gif);&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;1052&quot; height=&quot;1064&quot;&gt;
+   &lt;tr&gt;
+    &lt;td height=&quot;164&quot; colspan=&quot;5&quot;&gt;&lt;h1 style=&quot;position:relative;width:100%;height:100%;margin:0&quot;&gt;&lt;img width=&quot;1006&quot; height=&quot;194&quot; src=&quot;http://static.teamcococdn.com/microsite/conan.xxx/images/logo.png&quot; style=&quot;position:absolute;top:20px;left:30px&quot; alt=&quot;Conan.xxx&quot; width=&quot;&quot; height=&quot;&quot;&gt;&lt;/h1&gt;&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+    &lt;td height=&quot;359&quot; width=&quot;32&quot;&gt;&lt;img alt=&quot;&quot; src=&quot;http://static.teamcococdn.com/evergreen/blank.gif&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;&lt;/td&gt;
+    &lt;td height=&quot;359&quot; valign=&quot;top&quot; width=&quot;640&quot;&gt;
+     &lt;iframe id=&quot;video&quot; width=&quot;640&quot; height=&quot;359&quot; src=&quot;http://teamcoco.com/embed/v/37278/skin=plain/autostart=true&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/td&gt;  
+    &lt;td width=&quot;9&quot;&gt;&lt;img alt=&quot;&quot; src=&quot;http://static.teamcococdn.com/evergreen/blank.gif&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;&lt;/td&gt;   
+    &lt;td height=&quot;359&quot; valign=&quot;top&quot; width=&quot;300&quot; align=&quot;center&quot;&gt;      
+     &lt;table&gt;
+      &lt;tr&gt;&lt;td width=&quot;270&quot; height=&quot;320&quot; valign=&quot;top&quot;&gt;
+       &lt;font face=&quot;Arial&quot;&gt;
+        &lt;div id=&quot;copy&quot;&gt;
+         &lt;h2&gt;One Girl, Twenty Pencils&lt;/h2&gt;
+         &lt;p&gt;
+          Meet Suzie. Don't let her calm exterior fool you, because she's even calmer then that! Watch her help us out with our sharpened pencil shortage.&lt;br&gt;&lt;br&gt;
+          Since we only have one video so far, the rest are videos of LaBamba doing whatever it is he does.
+         &lt;/p&gt;
+        &lt;/div&gt;
+       &lt;/font&gt;
+      &lt;/td&gt;&lt;/tr&gt;
+     &lt;/table&gt;
+     &lt;table style=&quot;margin-left: 20px&quot; id=&quot;social&quot;&gt;
+      &lt;tr&gt;        
+       &lt;td&gt;&lt;div class=&quot;g-plusone&quot; data-size=&quot;medium&quot;&gt;&lt;/div&gt;&lt;/td&gt;
+       &lt;td&gt;&lt;a href=&quot;https://twitter.com/share&quot; data-url=&quot;http://conan.xxx&quot; class=&quot;twitter-share-button&quot; data-text=&quot;Conan.XXX - the third X is for 'XXX' - &quot; data-via=&quot;teamcoco&quot;&gt;Tweet&lt;/a&gt;&lt;/td&gt;
+       &lt;td valign=&quot;top&quot;&gt;&lt;div class=&quot;fb-like&quot; data-send=&quot;false&quot; data-layout=&quot;button_count&quot; data-width=&quot;40&quot; data-show-faces=&quot;false&quot;&gt;&lt;/div&gt;&lt;/td&gt;        
+      &lt;/tr&gt;
+     &lt;/table&gt;           
+    &lt;/td&gt;
+    &lt;td height=&quot;359&quot; width=&quot;60&quot;&gt;&lt;img alt=&quot;&quot; src=&quot;http://static.teamcococdn.com/evergreen/blank.gif&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;&lt;/td&gt;
+   &lt;/tr&gt;
+    ...</code></pre>
+</div>
+<p>my favorite bit of code:</p>
+<div>
+  <pre><code class='html'>&lt;td height=&quot;359&quot; width=&quot;32&quot;&gt;&lt;img alt=&quot;&quot; src=&quot;http://static.teamcococdn.com/evergreen/blank.gif&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;&lt;/td&gt;</code></pre>
+</div>
+<p>transparent 1x1px GIFs, oh how i miss you.</p>
+
+<p>you&#8217;ll notice that i actually cheated quite a bit. there are some <code>style</code> attributes and some absolute positioning hacks. but i figured the page has a facebook like button, so any sense of pure 1999 era development would be gone anyway.</p>
+
+<p>conan.xxx was a really fun project and is one of the reason i love working for <a href='http://twitter.com/teamcoco'>@teamcoco</a>; every day brings something new and completely unexpected. it was also amazing to be reminded just how much web development has evolved since i started building website many years ago.</p>
+
+<p>PS: if you haven&#8217;t already, watch the videos on <a href='http://conan.xxx'>conan.xxx</a>&#8230; they&#8217;re truly hilarious. props to <a href='https://twitter.com/andy_richter'>@Andy_Richter</a>, <a href='https://twitter.com/dubouchet'>@dubouchet</a> and the other <a href='https://twitter.com/#!/TeamCoco/conan-writers'>&#8216;Conan&#8217; writers</a>.</p>
+    </div>
+    <footer>
+        <a href='http://twitter.com/traviskuhl'>@traviskuhl</a>
+    </footer>
+    <script>
+        var _gaq=[['_setAccount','UA-123654-9'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+</body>
+</html>
