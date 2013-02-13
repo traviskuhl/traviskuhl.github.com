@@ -117,17 +117,15 @@ footer a {
 }
 
 
-.highlight  {
+
+.highlight {
 	background: #eee;
 	overflow: auto;
 	padding: 10px;
-	text-shadow: #fcfcfc 1px 1px;
-	opacity: .9;
 
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	border: solid 3px #666;
 }
 .highlight:hover { opacity: 1;}
 .highlight pre {margin: 0;}
