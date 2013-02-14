@@ -127,7 +127,6 @@ footer a {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	border: solid 3px #666;
 }
 .highlight:hover { opacity: 1;}
 .highlight pre {margin: 0;}
