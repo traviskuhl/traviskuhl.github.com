@@ -117,12 +117,11 @@ footer a {
 }
 
 
-.highlight  {
+
+.highlight {
 	background: #eee;
 	overflow: auto;
 	padding: 10px;
-	text-shadow: #fcfcfc 1px 1px;
-	opacity: .9;
 
 	border-radius: 5px;
 	-moz-border-radius: 5px;
