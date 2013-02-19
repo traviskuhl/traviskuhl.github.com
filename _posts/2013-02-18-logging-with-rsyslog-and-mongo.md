@@ -39,24 +39,24 @@ Our setup is pretty simple:
 An example rsyslog configuration from a client server:
 
 {% highlight sh %}
-    *.*  @@{ServicesIp}:{ServicesPort}
-    $ModLoad imfile
-    input(
-        type="imfile"
-        Facility="{InstanceName}"
-        File="/var/log/nginx/tc-access.log"
-        Tag="ngaccess"
-        StateFile="/var/spool/rsyslog/ngaccess"
-        Severity="info"
-    )
-    input(
-        type="imfile"
-        Facility="{InstanceName}"
-        File="/var/log/nginx/tc-error.log"
-        Tag="ngerror"
-        StateFile="/var/spool/rsyslog/ngerror"
-        Severity="error"
-    )
+*.*  @@{ServicesIp}:{ServicesPort}
+$ModLoad imfile
+input(
+    type="imfile"
+    Facility="{InstanceName}"
+    File="/var/log/nginx/tc-access.log"
+    Tag="ngaccess"
+    StateFile="/var/spool/rsyslog/ngaccess"
+    Severity="info"
+)
+input(
+    type="imfile"
+    Facility="{InstanceName}"
+    File="/var/log/nginx/tc-error.log"
+    Tag="ngerror"
+    StateFile="/var/spool/rsyslog/ngerror"
+    Severity="error"
+)
 {% endhighlight %}
 
 Our deployment system replaces `{InstanceName}`, `{ServicesName}` and `{ServicesPort}` with the correct information during boot-up.
@@ -64,16 +64,16 @@ Our deployment system replaces `{InstanceName}`, `{ServicesName}` and `{Services
 An example rsyslog configuration from our storage server:
 
 {% highlight sh %}
-    $ModLoad imtcp
-    $InputTCPServerBindRuleset remote
-    $InputTCPServerRun {ServicesPort}
-    $ModLoad ommongodb
-    $RuleSet remote
-    *.* action(
-        type="ommongodb"
-        server="127.0.0.1"
-        serverport="27017"
-    )
+$ModLoad imtcp
+$InputTCPServerBindRuleset remote
+$InputTCPServerRun {ServicesPort}
+$ModLoad ommongodb
+$RuleSet remote
+*.* action(
+    type="ommongodb"
+    server="127.0.0.1"
+    serverport="27017"
+)
 {% endhighlight %}
 
 This tells rsyslog to listen on port `{ServicesPort}` for incoming messages and write them to `syslog.log` in MongoDB.
