@@ -38,7 +38,7 @@ Our setup is pretty simple:
 
 The rsyslog config on our front-ends looks something like:
 
-{% highlight %}
+{% highlight sh %}
     *.*  @@{ServicesIp}:{ServicesPort}
     $ModLoad imfile
     input(
@@ -62,7 +62,7 @@ The rsyslog config on our front-ends looks something like:
 Our deployment system replaces `{InstanceName}`, `{ServicesName}` and `{ServicesPort}` with the correct information during boot-up. We have similar configs on our other layers.
 
 The rsyslog config on our aggregation server looks like:
-{% highlight %}
+{% highlight sh %}
     $ModLoad imtcp
     $InputTCPServerBindRuleset remote
     $InputTCPServerRun {ServicesPort}
