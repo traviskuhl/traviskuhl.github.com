@@ -38,6 +38,7 @@ Our setup is pretty simple:
 
 The rsyslog config on our front-ends looks something like:
 
+{% highlight %}
     *.*  @@{ServicesIp}:{ServicesPort}
     $ModLoad imfile
     input(
@@ -56,11 +57,12 @@ The rsyslog config on our front-ends looks something like:
         StateFile="/var/spool/rsyslog/ngerror"
         Severity="error"
     )
+{% endhighlight %}
 
 Our deployment system replaces `{InstanceName}`, `{ServicesName}` and `{ServicesPort}` with the correct information during boot-up. We have similar configs on our other layers.
 
 The rsyslog config on our aggregation server looks like:
-
+{% highlight %}
     $ModLoad imtcp
     $InputTCPServerBindRuleset remote
     $InputTCPServerRun {ServicesPort}
@@ -71,6 +73,7 @@ The rsyslog config on our aggregation server looks like:
         server="127.0.0.1"
         serverport="27017"
     )
+{% endhighlight %}
 
 This tells rsyslog to listen on port `{ServicesPort}` for incoming messages and write them to `syslog.log` in MongoDB.
 
