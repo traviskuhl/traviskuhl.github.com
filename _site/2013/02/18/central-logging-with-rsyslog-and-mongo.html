@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Logging with Rsyslog, Node.js and MongoDB | code.traviskuhl.com</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.8.1/build/cssreset/cssreset-min.css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/code.css">
+</head>
+<body class="post">
+    <header>
+        <div class="inner">
+            
+                <a class="logo" href="/">code<sub>.traviskuhl.com</sub></a>
+            
+
+            <ol>
+                
+                    <li><a href='/2013/02/18/central-logging-with-rsyslog-and-mongo.html'>Logging with Rsyslog, Node.js and MongoDB <time>2013-02-18</time></a></li>
+                
+                    <li><a href='/2012/07/11/tables-and-conan.xxx.html'>conan.xxx <time>2012-07-11</time></a></li>
+                
+                    <li><a href='/2012/07/07/hello-world.html'>hello world <time>2012-07-07</time></a></li>
+                
+            </ol>
+        </div>
+    </header>
+    <div id="bd">
+        <h1 id='logging_with_rsyslog_nodejs_and_mongodb'>Logging with Rsyslog, Node.js and MongoDB</h1>
+
+<p>Logging has been a pain point at <a href='http://teamcoco.com'>teamcoco.com</a> for some time now. After we migrated our stack to <a href='http://aws.amazon.com'>AWS</a>, we no longer had a way to get a quick overview of the software health of our stack (AWS&#8217;s cloudwatch provides a great way to track hardware health). With the new, more traditional, tiered architecture, SSH&#8217;ing into multiple boxes to try and track down issues was a huge pain. Worse than the general furstration with tailing logs, it was a huge time suck. So I set out to find a better logging solution.</p>
+
+<h2 id='our_requirements'>Our requirements</h2>
+
+<ol>
+<li><strong>Easy Setup</strong> - we use AWS auto scalling, so instances are constantly flowing in and out of rotation. The logging solution had to be easily install and configured by our deployment system.</li>
+
+<li><strong>Light Weight</strong> - we try to keep non-rendering resource usage (anything not PHP/nginx) on our front-end boxes as thin as possible. We want as much of the resources on the instance to go toward page rendering. So the logging system had to have a small footprint</li>
+
+<li><strong>Scalable</strong> - teamcoco has massive traffic swings. We regularly get large spikes in traffic (<a href='http://twitter.com/conanobrien'>@conanobrien</a> has a lot of followers). We needed a solution that gracefully handle the traffic spikes, without needing to add more aggregation servers.</li>
+
+<li><strong>Flexible</strong> - we needed something that could handle not only error logging, but nginx access logs, mysql logs, and any custom logs we keep.</li>
+
+<li><strong>MongoDB Storage</strong> - we already use mongodb for most of our backend storage, so it made sense to leverage a storage engine we already had running.</li>
+</ol>
+
+<p>After taking a look at a bunch of solutions, including a few SaaS solutions, <a href='http://www.rsyslog.com/'>rsyslog</a> was our choice.</p>
+
+<ol>
+<li>It&#8217;s simple to setup. Our deployment script just has to push our custom config to <code>/etc/rsyslog.d/</code> and the instance starts sending logs to our aggregation server.</li>
+
+<li>So far we haven&#8217;t had any issue with rsyslog hogging resources. One thing to watch out for is the aggregation server going down. rsyslog saves its message queue in memory and dumps the queue to disk if it&#8217;s allotted memory fills. So any issues with the aggregation server can put strains on the client instances.</li>
+
+<li>Since rsyslog works off a message queue, in general traffic spikes on the client instances are throttled, which protects the aggregation server. We had to mess around with rsyslog&#8217;s <code>RateLimit.Interval</code> and <code>RateLimit.Burst</code> settings a bit to try and strike a balance between protecting the server from flooding and prevent the queue on the client from growing to large.</li>
+
+<li>We mostly use the rsyslog <a href='http://www.rsyslog.com/doc/imfile.html'><code>imfile</code></a> input plugin (which tails a specific file). This allows us to specify a bunch of different log files and adding new log files is as simple as adding a new line to our config.</li>
+
+<li>We use the rsyslog <a href='http://www.rsyslog.com/doc/ommongodb.html'><code>ommongodb</code></a> output module, which reads from a TCP and inserts messages into a mongo database</li>
+</ol>
+
+<h2 id='how_our_setup_works'>How Our Setup Works</h2>
+
+<p>Our setup is pretty simple:</p>
+
+<ol>
+<li>Client instances write to local log files</li>
+
+<li>rsyslog on the client instances tails the log files and pushes logs to the central server</li>
+
+<li>rsyslog on the server writes log messages to <code>syslog.log</code> in MongoDB</li>
+
+<li>Node.js scripts reads from syslog.log and parses the raw logs and inserts them into other collections</li>
+</ol>
+
+<p>The rsyslog config on our front-ends looks something like:</p>
+
+<pre><code>*.*  @@{ServicesIp}:{ServicesPort}
+$ModLoad imfile
+input(
+    type=&quot;imfile&quot;
+    Facility=&quot;{InstanceName}&quot;
+    File=&quot;/var/log/nginx/tc-access.log&quot;
+    Tag=&quot;ngaccess&quot;
+    StateFile=&quot;/var/spool/rsyslog/ngaccess&quot;
+    Severity=&quot;info&quot;
+)
+input(
+    type=&quot;imfile&quot;
+    Facility=&quot;{InstanceName}&quot;
+    File=&quot;/var/log/nginx/tc-error.log&quot;
+    Tag=&quot;ngerror&quot;
+    StateFile=&quot;/var/spool/rsyslog/ngerror&quot;
+    Severity=&quot;error&quot;
+)</code></pre>
+
+<p>Our deployment system replaces <code>{InstanceName}</code>, <code>{ServicesName}</code> and <code>{ServicesPort}</code> with the correct information during boot-up. We have similar configs on our other layers.</p>
+
+<p>The rsyslog config on our aggregation server looks like:</p>
+
+<pre><code>$ModLoad imtcp
+$InputTCPServerBindRuleset remote
+$InputTCPServerRun {ServicesPort}
+$ModLoad ommongodb
+$RuleSet remote
+*.* action(
+    type=&quot;ommongodb&quot;
+    server=&quot;127.0.0.1&quot;
+    serverport=&quot;27017&quot;
+)</code></pre>
+
+<p>This tells rsyslog to listen on port <code>{ServicesPort}</code> for incoming messages and write them to <code>syslog.log</code> in MongoDB.</p>
+
+<p>We have a few different node.js scripts that run various transformations on the raw logs. For example, we have a script called error.js that parses our nginx and PHP error logs to match up requests that error out, with the possible PHP error that caused it. Another script aggregates API endpoint request times. Another aggregates 404 errors and the URLs they occur on. All of the scripts also broadcast the parsed messages to a <a href='http://www.rabbitmq.com/'>rabbitMQ</a> stream, which gives us realtime access to the data in our dashboard. Since everything is in MongoDB, we can also use the command line client to run one off queries. We use graphite to graph our aggregated data in our dashboard.</p>
+
+<p>As an added bonus, since we&#8217;re parsing our nginx access logs, we are also able to add some custom analytics to our CMS. Now our editors are able to see how content is performing, whwere traffic is coming from, etc, in near-realtime.</p>
+
+<h2 id='a_few_things_we_learned'>A few things we learned</h2>
+
+<ul>
+<li><strong>Break apart your logs and assign distinct <code>Tags</code> to each type of log.</strong> Having everything flow into a single log file/message stream might be simpler on the client side, but it makes efficient parsing the logs a headache. With our access, error, and php error messages in separate streams, our transform scripts can efficiently split up the work of parsing/reporting. Also, spikes in volume for any one type of stream, doesn&#8217;t drag down the processing of others (ie, traffic spikes, which case an increase in access messages, don&#8217;t slow down processing of errors)</li>
+
+<li><strong>Make sure to log the signal, not the noise</strong> (I just finished ready <a href='http://www.amazon.com/dp/159420411X'>The Signal and the Noise</a> by Nate Silver and those terms are stuck in my head). It&#8217;s tempting to log everything and figure the rest out later. But that can lead to so much useless information (noise), that the valuable information (signal) gets lost. It might take some iteration to figure out what&#8217;s most important, but it&#8217;s time well spent.</li>
+
+<li><strong>rsyslog documentation can be confusing</strong> The <a href='http://www.rsyslog.com/doc/manual.html'>documentation</a> is in blog format, which made some things difficult to find. Also checkout out the <a href='http://wiki.rsyslog.com/index.php/Main_Page'>wiki</a> for some examples.</li>
+</ul>
+    </div>
+    <footer>
+        <a href='http://twitter.com/traviskuhl'>@traviskuhl</a>
+    </footer>
+    <script>
+        var _gaq=[['_setAccount','UA-123654-9'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+</body>
+</html>

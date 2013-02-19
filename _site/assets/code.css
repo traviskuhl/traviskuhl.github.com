@@ -1,7 +1,7 @@
 html, body {
 	width: 100%;
 	height:100%;
-	font-size: 13px;
+	font-size: 14px;
 	font-family: arial;
 	margin: 0; padding: 0;
 }
@@ -16,7 +16,7 @@ header {
 }
 
 header div.inner {
-	padding: 50px 0;
+	padding: 50px 20px 50px 0;
 }
 
 header h1 {margin:0;}
@@ -73,10 +73,9 @@ header ol li a time {
 header ol li:last-child, header ol li:last-child a { border-bottom: none;}
 
 #bd {
-	padding: 75px 20px 20px 420px;
+	padding: 60px 20px 20px 440px;
 	color: #333;
 	max-width: 900px;
-	line-height: 1.4em;
 	text-shadow: #fafafa 1px 1px;
 }
 
@@ -84,15 +83,38 @@ header ol li:last-child, header ol li:last-child a { border-bottom: none;}
 	font-family: "Roboto Condensed";
 	font-size: 42px;
 	color: #333;
-	margin-top: 0;
+	margin: 0 0 10px;
+}
+#bd h2 {
+	font-size: 22px;
+	font-weight: bold;
+	margin: 20px 0 10px;
 }
 
 #bd a {
-	color: #111;
+	color: #999;
 	text-shadow: none;
 	text-decoration: none;
 }
-#bd a:hover { color: #000; }
+#bd a:hover { color: #333; text-decoration: underline; }
+
+#bd strong {
+	font-weight: bold;
+}
+
+#bd p {
+	line-height: 1.6em;
+	margin-bottom: 15px;
+}
+
+#bd ol li {
+	list-style: decimal;
+	margin: 0 0 10px 20px;
+}
+#bd ul li {
+	list-style: disc;
+	margin: 0 0 3px 20px;
+}
 
 body.home header {
 	border-right: solid 2px #fff;
