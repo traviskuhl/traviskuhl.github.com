@@ -14,16 +14,16 @@ Our requirements
 -----------------
 
  1. **Easy Setup** - We use AWS auto scaling, so instances are constantly flowing in and out of rotation. The logging solution had to be easily installed and configured by our deployment system.
- 2. **Light Weight** - We try to keep non-rendering resource usage (anything not PHP/nginx) on our front-end servers as thin as possible.  So the logging system had to have a small footprint.
- 3. **Scalable** - We have massive traffic swings that are usually unpredictable ([@conanobrien](http://twitter.com/conanobrien) has a lot of followers). We needed a solution that could gracefully handle the traffic spikes, without needing to scale the storage servers.
+ 2. **Light Weight** - We try to keep non-rendering resource usage (anything not PHP/nginx) on our front-end servers as thin as possible.  So the logging system had to have a small footprint on the client instance.
+ 3. **Scalable** - We have massive traffic swings that are usually unpredictable ([@conanobrien](http://twitter.com/conanobrien) has a lot of followers). We needed a solution that could gracefully handle the traffic spikes, while keeping a semi-consistant load on the storage servers.
  4. **Flexible** - we needed something that could handle not only error logs, but nginx access logs, mysql logs, and any other custom logs.
  5. **MongoDB Storage** - we already use Mongo for most of our backend storage, so it made sense to leverage a storage engine we already had running.
 
 After taking a look at a bunch of open-source solutions ([Flume](http://flume.apache.org/), [GrayLog2](http://graylog2.org/) and [LogStash](http://www.logstash.net/) were early contenders) and a few SaaS solutions, [rsyslog](http://www.rsyslog.com/) was our choice.
 
 1. It's simple to setup. Our deployment script just has to push our custom config to `/etc/rsyslog.d/` and the instance starts sending logs to our storage server.
-2. So far we haven't had any issue with rsyslog hogging resources. One thing to watch out for is memory spikes on clinet instances when the storage server going down. rsyslog saves its message queue in memory and dumps the queue to disk if it's allotted memory fills. So any issues with the storage server can put strains on the client instances.
-3. Since rsyslog works off a message queue, in general traffic spikes on the client instances are throttled, which protects the storage server. We had to mess around with rsyslog's `RateLimit.Interval` and `RateLimit.Burst` settings a bit to find a balance between protecting the server from flooding and prevent the queue on the client from growing to large.
+2. So far we haven't had any issue with rsyslog hogging resources on the client instances. One thing to watch out for is memory spikes on clinet instances when the storage server goes down. rsyslog saves its message queue in memory and dumps the queue to disk if it's allotted memory fills. So any issues with the storage server can put strains on the client instances. Keeping the storage server online and accessible is a must.
+3. Since rsyslog works off a message queue, traffic spikes on the client instances are throttled, which protects the storage server. We had to mess around with rsyslog's `RateLimit.Interval` and `RateLimit.Burst` settings a bit to find a balance between protecting the storage server from flooding and preventing the queue on the client from growing to large.
 4. We use rsyslog's [`imfile`](http://www.rsyslog.com/doc/imfile.html) input plugin (which tails a specific file) on our client instances. This allows us to specify a bunch of different log files and adding new log files is as simple as adding a new line to our config.
 5. We use rsyslog's [`ommongodb`](http://www.rsyslog.com/doc/ommongodb.html) output module, which reads from a TCP and inserts messages into a mongo database, on our storage server.
 
@@ -31,12 +31,12 @@ How Our Setup Works
 --------------------
 Our setup is pretty simple:
 
-1. Client instances write to local log files.
-2. rsyslog on the client instances tails the log files and pushes logs to the storage server over TCP.
-3. rsyslog on the storage reads the incoming TCP messages and writes them to a Mongo collection (`syslog.log`).
-4. Several node.js scripts read from `syslog.log`, parses the raw log messages and inserts them into other collections.
+1. Client instance writes to local log files.
+2. rsyslog on the client instance tails the log files and pushes logs to the storage server over TCP.
+3. rsyslog on the storage server reads the incoming TCP messages and writes them to a Mongo collection (`syslog.log`).
+4. Several node.js scripts read from `syslog.log`, parses the raw log messages and inserts them into other stream specific collections (analytics, errors, etc).
 
-An example rsyslog configuration from a client server:
+An example rsyslog configuration from a client instance:
 
 {% highlight sh %}
 *.*  @@{ServicesIp}:{ServicesPort}
