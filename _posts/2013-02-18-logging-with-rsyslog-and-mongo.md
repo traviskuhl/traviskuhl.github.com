@@ -8,7 +8,7 @@ class: post
 ================================
 
 
-Centralized logging has been a pain point at [teamcoco.com](http://teamcoco.com) for some time now. After we migrated our stack to [AWS](http://aws.amazon.com), we didn't have a way to get a quick overview of the health of our software (AWS's cloudwatch provides a great way to track hardware health). SSH'ing into multiple boxes to try and track down issues was a huge pain. Worse than the general frustration with tailing logs, it was a huge time suck. So I set out to find a better logging solution.
+Centralized logging has been a pain point at [teamcoco.com](http://teamcoco.com) for some time now. After we migrated our stack to [AWS](http://aws.amazon.com), we didn't have a way to get a quick overview of the health of our software (AWS's cloudwatch provides a great way to track hardware health). SSH'ing into multiple boxes to try and track down issues was a huge pain. Worse than the general frustration with tailing logs, it was a huge time suck.
 
 Our requirements
 -----------------
