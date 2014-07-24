@@ -2,5 +2,4 @@
 .DS_Store
 build*
 build/*
-_config.yml
 draft/*
