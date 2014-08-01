@@ -102,7 +102,7 @@ header ol li:last-child, header ol li:last-child a { border-bottom: none;}
 	font-weight: bold;
 }
 
-#bd p {
+#bd p, #bd ol li, #bd ul li {
 	line-height: 1.6em;
 	margin-bottom: 15px;
 }
