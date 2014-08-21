@@ -20,8 +20,7 @@ As we began planning out the rewrite, we had three main goals in mind:
 The five biggest changes to the code base/infrastruture ended up being:
 
 1. PHP Framework
-1. Front End Framework
-1. Shareable components
+1. Front End Updates
 1. Modern CI process
 1. Automated Deployment System
 
@@ -32,7 +31,11 @@ These fractured implementation choices lead to very little code reuse across our
 
 In additional to the multiple frameworks, we were using a tangled mess of Pear, Pecl and a custom package manager to manage dependencies. This lead to a lot of headaches with installation and environment setup. Getting a new environment up and running was a complicated process, involving way to many steps.
 
-The new code base is built completely on a single framework, [bolt](https://github.com/boltphp/core). With all of our layers using the same framework, we've been able to centralize a lot of our code into shareable component packages. We've seen the biggest gains in our Model components.
+The new code base is built completely on a single framework, [bolt](https://github.com/boltphp/core). With all of our layers using the same framework, we've been able to centralize a lot of our code into shareable component packages. This has lead to a huge reduction in code, from 90k LoC in 900 files to just over 30k LoC in 300 files.
+
+Another factor in the large reduction of code is our heavy use of [Composer](https://getcomposer.org/) and [Packagist](https://packagist.org/). Composer has been great way easily manage our dependencies. Along with post-install scripts we've been able to simplify development environment setups to a single command. Packagist has a wealth of great open source packages and not reiventing the wheel helped us shave weeks off of our development cycles and largly eased the complexity of many parts of our code base.
+
+
 
 
 
