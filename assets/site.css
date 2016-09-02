@@ -38,7 +38,7 @@ h1 {
   margin: 0;
 }
 
-section {
+aside {
   height: 4rem;
 }
 
@@ -62,7 +62,7 @@ a:hover {
   top: -5px;
 }
 
-body.ready a {
+body.ready a, html.no-js a {
   transform: scale(1);
   opacity: 1;
 }
