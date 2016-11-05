@@ -43,7 +43,6 @@ aside {
 }
 
 a {
-  transform: scale(0);
   opacity: 0;
   color: #666;
   display: inline-block;
@@ -51,7 +50,7 @@ a {
   margin: 0 5px;
   border-radius: 2px;
   width: 50px;
-  font-size: 3rem;
+  font-size: 3.1rem;
   position: relative;
   top: 0;
   z-index: 3;
