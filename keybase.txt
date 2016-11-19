@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/traviskuhl
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://traviskuhl.com
+  * I am traviskuhl (https://keybase.io/traviskuhl) on keybase.
+  * I have a public key with fingerprint 2FF3 F8F4 3F2F 1D78 1E3C  A6B1 7468 A231 F97F 51DB
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "010112e02c6319c1008123b73f878310ff616872fda33017fc3069b4efe60943fda30a",
+            "fingerprint": "2ff3f8f43f2f1d781e3ca6b17468a231f97f51db",
+            "host": "keybase.io",
+            "key_id": "7468a231f97f51db",
+            "kid": "010112e02c6319c1008123b73f878310ff616872fda33017fc3069b4efe60943fda30a",
+            "uid": "b4913681b9d9270f784f1e106e5ff919",
+            "username": "traviskuhl"
+        },
+        "service": {
+            "hostname": "traviskuhl.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1479594554,
+    "expire_in": 157680000,
+    "prev": "1e88d910826df54e39fedf09fb0ea9364b94fef669495d31e58f3141e41cff76",
+    "seqno": 10,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.58
+Comment: https://keybase.io/crypto
+
+yMIjAnicrZJbSBVBGMfPMU2yixolZgeDRcIHs5m9zO6c0oygC1pQkGREp73MHLej
+Z4+76zFNIVI0kC4ihWnUS5rSQ0X1UkEa9hBBhUmFBRqoXYTIrmB0mZV6qsfm5WO+
+7///zfd9zODCOb4U/3Tz5Y0nrf5H/vsDXdW+XWAoeJDTLKOWYzFCZgOpMIjjhiKm
+wQU5AAGEPAG8jgSIdQiAAnlBkwWqyIoAAaUIIkXmqaEKAoAy1QWAsCYSShDAouDl
+gcrlcdSMhokds82oy7A8pYxAWZ2n0JAVSARdRRqURaSovAAplqkEDY0Zyy3Hc7Dm
+NNUh+abFcuwSmm3vH/r/3Hf1LE4TMRSQAjVsYF4GVFZECgkEiEiUYog9oUPsqFpJ
+mNq11bjpRKrLK7iGPI7l46ZOvNV6s/ylydetSuaP2ZZr6VYFq5W7bizoWd3amKet
+IVroNyWkmVGDrZIZ4sR2TCvKBSFT6q7pYaEoYwmLkiTmceRAzLRJyPQUkowUwI73
+DIkzJCSKYmAIFB4ZVBKJgCkxKMBUA0TFAhI1LFJCEcIilgwBEkmhAhQhEaFOqYw4
+b66qqMXYDOqqYcZ0zHBUdattwjXc6d+T6POn+OYmJXh/zJcyL+3Pz1tQkPx9xcSO
+fWnd67LnSMcbRle9KcvuTe1q2100/MW52n1Dvr+6r2Smc8K+OVCVVVZqtmQFiveX
+b21JL8o98zD1Q0nmwosr32ZOPrHevXRW9OUH1o6NHd26qOleVU5rQWH915kN8S3t
+1wf5zSe3TxbtbRjNrUkPtxrLjslJjf4TdUPjKUuzE5KeHhksHrj14/a5Ipja0+s2
+d1zYlJO8eU1geWpH+GnpuUDdxqmC8OvA/J3rF1+Rg5Wfhi8llv40PrfnN6pNKO+0
+crTtW8KpV1MFt0LD28yunpHmtPc5Tw7Bu9dubxv9ePhBwtDZjBFu/MCSnOnzhf3P
+pzvrJzLPoGcv3MmMYiQ/jvwC56w7gw==
+=/CZX
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/traviskuhl
+
+==================================================================
